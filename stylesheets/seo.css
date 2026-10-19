@@ -1,0 +1,30 @@
+.seo-breadcrumb {
+  margin: 1.5rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.seo-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.seo-breadcrumb li + li::before {
+  content: "‹";
+  margin-inline-end: 0.35rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.seo-breadcrumb a {
+  color: var(--md-typeset-a-color);
+}
+
+.seo-breadcrumb [aria-current="page"] {
+  color: var(--md-default-fg-color--light);
+}
