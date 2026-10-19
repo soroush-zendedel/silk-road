@@ -1,0 +1,15 @@
+{# Keep the repository link but omit Material's dynamic GitHub statistics/release lookup. #}
+<a
+  href="{{ config.repo_url }}"
+  title="{{ lang.t('source') }}"
+  class="md-source"
+  data-md-component="repository-link"
+>
+  <div class="md-source__icon md-icon">
+    {% set icon = config.theme.icon.repo or "fontawesome/brands/git-alt" %}
+    {% include ".icons/" ~ icon ~ ".svg" %}
+  </div>
+  <div class="md-source__repository">
+    {{ config.repo_name }}
+  </div>
+</a>

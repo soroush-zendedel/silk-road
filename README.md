@@ -1,82 +1,49 @@
 # جاده‌ی ابریشم — آنچه باید بدانیم
 
-> «اتصال فرهنگ‌ها، ایجاد اعتماد.» — شعار تاریخی جاده‌ی ابریشم
+این پروژه کتابی فارسی درباره‌ی تاریخ و میراث جاده‌ی ابریشم است. مخزن منبع در [GitHub](https://github.com/soroush-zendedel/silk-road) قرار دارد و سایت در [soroush-zendedel.github.io/silk-road](https://soroush-zendedel.github.io/silk-road/) منتشر می‌شود.
 
-پروژه‌ی **جاده‌ی ابریشم — آنچه باید بدانیم** تلاشی است برای بازخوانی تاریخ، معنا و میراث فرهنگی این مسیر کهن؛  
-راهی که قرن‌ها، شرق و غرب را از طریق تبادل **کالا، اندیشه، هنر و مردم** به یکدیگر پیوند داد.
+کتاب با MkDocs و پوسته‌ی Material for MkDocs ساخته شده است. صفحات Markdown در `docs/` و تنظیمات ساخت در `mkdocs.yml` قرار دارند.
 
-> این کتاب بر پایه‌ی ترجمه و بازنویسی پژوهش‌های تاریخی، از جمله اثر برجسته‌ی  
-> **The Silk Road: A Very Short Introduction** نوشته‌ی *James A. Millward*  
-> با افزودن توضیحات، نقشه‌ها و یادداشت‌های تحلیلی برای خوانندگان فارسی‌زبان تدوین شده است.
+## اجرای محلی
 
----
+Python 3.9 یا جدیدتر و Git نصب کنید. در Windows، PowerShell:
 
-## 🧭 درباره‌ی پروژه
+```powershell
+git clone https://github.com/soroush-zendedel/silk-road.git
+Set-Location silk-road
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m mkdocs serve
+```
 
-در این مجموعه، تاریخ جاده‌ی ابریشم از زوایای گوناگون بررسی می‌شود:
+در macOS و Linux:
 
-- خاستگاه‌های جغرافیایی و فرهنگی جاده‌های ابریشم  
-- نقش ایران، چین، هند و امپراتوری‌های باستان در شکل‌گیری شبکه‌ی تجاری  
-- تبادل ایده‌ها، ادیان و فناوری‌ها در بستر این مسیر  
-- جاده‌ی ابریشم به‌مثابه نخستین شکل جهانی‌سازی در تاریخ  
-- بازتاب جاده‌ی ابریشم در سیاست و فرهنگ معاصر  
-
-هدف این پروژه، ارائه‌ی **منبعی آزاد، دقیق و چندرشته‌ای** است  
-تا خواننده بتواند از خلال متون تاریخی و یافته‌های باستان‌شناسی،  
-نقشه‌ی تعاملات تمدن‌ها را از نو ترسیم کند.
-
-این کتاب با استفاده از **MkDocs** و پوسته‌ی **Material for MkDocs** ساخته شده  
-و به‌صورت **سایت استاتیک (Static Site)** در گیت‌هاب منتشر می‌شود.
-
----
-
-## 🛠️ ساخت پروژه به‌صورت محلی
-
-برای اجرای پروژه در محیط محلی (Local):
-
-```bash
-git clone https://github.com/parscast/silk-road.git
+```sh
+git clone https://github.com/soroush-zendedel/silk-road.git
 cd silk-road
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-mkdocs serve
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m mkdocs serve
 ```
 
-سپس مرورگر را باز کنید و به آدرس زیر بروید:
+سایت محلی در `http://127.0.0.1:8000/` در دسترس است. ساخت خروجی بدون اجرا:
 
-```
-http://127.0.0.1:8000
-```
-
----
-
-## 🌐 انتشار در GitHub Pages
-
-برای مشارکت در پروژه:
-
-1. این مخزن را **Fork** کنید.  
-2. تغییرات خود را در یک شاخه‌ی جدید اعمال کرده و سپس **Push** کنید.  
-3. یک **Pull Request** برای بازبینی ارسال کنید.  
-
-پس از تأیید، نسخه‌ی به‌روزشده‌ی کتاب به‌صورت خودکار ساخته شده  
-و در **GitHub Pages** منتشر می‌شود.
-
-**آدرس انتشار نهایی:**
-
-```
-https://parscast.github.io/silk-road/
+```sh
+python -m mkdocs build --strict
 ```
 
----
+## انتشار
 
-## 📄 مجوز
+GitHub Pages از شاخه‌ی `gh-pages` منتشر می‌کند. مخزن گردش‌کار سفارشی برای ساخت از `main` یا Pull Request ندارد؛ ادغام Pull Request در `main` به‌تنهایی سایت را به‌روز نمی‌کند. پس از ادغام تغییرات، فردی با دسترسی نوشتن باید از checkout به‌روز `main` دستور زیر را اجرا کند. MkDocs خروجی را می‌سازد و به `gh-pages` می‌فرستد و GitHub Pages سپس آن شاخه را منتشر می‌کند:
 
-این پروژه تحت مجوز **Creative Commons Attribution 4.0 (CC BY 4.0)** منتشر می‌شود.  
-بازنشر، ویرایش و استفاده‌ی آموزشی از محتوا آزاد است،  
-تنها ذکر نام پروژه و منبع الزامی است.
+```sh
+python -m mkdocs gh-deploy
+```
 
----
+URL سایت: <https://soroush-zendedel.github.io/silk-road/>.
 
-> «راهی که از میان بیابان‌ها و دل تمدن‌ها می‌گذرد،  
-> نه فقط گذرگاه تجارت، بلکه مسیر شناخت و هم‌فهمی انسان‌هاست.»
+## مجوز و انتساب
+
+محتوای این پروژه تحت [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) است؛ متن کامل شرایط در فایل [LICENSE](LICENSE) آمده است. بازنشر و اقتباس، از جمله استفاده‌ی تجاری، مجاز است به شرط انتساب مناسب، پیوند دادن به مجوز، و اعلام تغییراتی که انجام داده‌اید. این مجوز درباره‌ی کد پوسته یا وابستگی‌های ثالث نیست؛ مجوزهای خود آن‌ها برقرار است.
