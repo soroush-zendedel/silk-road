@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  {% if seo_breadcrumb_json %}
+    <script type="application/ld+json">{{ seo_breadcrumb_json | safe }}</script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+  {% if seo_breadcrumbs %}
+    <nav class="seo-breadcrumb" aria-label="مسیر صفحه">
+      <ol>
+        {% for crumb in seo_breadcrumbs %}
+          <li>
+            {% if crumb.url %}
+              <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+            {% else %}
+              <span{% if loop.last %} aria-current="page"{% endif %}>{{ crumb.name }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+  {% endif %}
+{% endblock %}
