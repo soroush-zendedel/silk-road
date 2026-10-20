@@ -3,22 +3,7 @@
 import json
 
 
-ROOT_URL = "https://soroush-zendedel.github.io"
 ROOT_LABEL = "خانه"
-
-
-def _find_page_path(items, target_url, parents=()):
-    for item in items:
-        if getattr(item, "is_page", False):
-            if item.url == target_url:
-                return parents
-        elif getattr(item, "is_section", False):
-            found = _find_page_path(
-                item.children, target_url, parents + (item.title,)
-            )
-            if found is not None:
-                return found
-    return None
 
 
 def on_page_context(context, page, config, **kwargs):
@@ -29,15 +14,10 @@ def on_page_context(context, page, config, **kwargs):
         return context
 
     site_url = config.site_url
-    trail = [{"name": ROOT_LABEL, "url": ROOT_URL}]
-    trail.append({"name": config.site_name, "url": site_url})
-
-    nav = context.get("nav")
-    section_titles = _find_page_path(nav.items, page.url) if nav else None
-    if section_titles:
-        trail.extend({"name": title, "url": None} for title in section_titles)
-
-    trail.append({"name": page.title, "url": None})
+    # GitHub Pages serves this project under /silk-road/, so the domain root
+    # is not the book's homepage. Use the configured canonical site URL.
+    trail = [{"name": ROOT_LABEL, "url": site_url}]
+    trail.append({"name": page.title, "url": site_url + page.url})
     items = []
     for position, crumb in enumerate(trail, start=1):
         item = {
@@ -45,8 +25,7 @@ def on_page_context(context, page, config, **kwargs):
             "position": position,
             "name": crumb["name"],
         }
-        if crumb["url"]:
-            item["item"] = crumb["url"]
+        item["item"] = crumb["url"]
         items.append(item)
 
     context["seo_breadcrumbs"] = trail
