@@ -82,6 +82,7 @@ plugins:
 nav:
   - درباره‌ی پروژه: about.md
   - مقدمه:
+    - 00-introduction/index.md
     - پیش‌گفتار: index.md
     - سرزمین و انسان در اوراسیای مرکزی: 00-introduction/ch01-Land-and-man-in-Central-Eurasia.md
     - امپراتوری‌های آسیای داخلی و جاده ابریشم: 00-introduction/ch02-inner-asian-empires-and-the-silk-road.md

@@ -6,6 +6,36 @@ import json
 ROOT_LABEL = "خانه"
 
 
+def _find_page_path(items, target_url, parents=()):
+    for item in items:
+        if getattr(item, "is_page", False):
+            if item.url == target_url:
+                return parents
+        elif getattr(item, "is_section", False):
+            section_index = next(
+                (
+                    child
+                    for child in item.children
+                    if getattr(child, "is_page", False)
+                    and child.file.src_uri.endswith("/index.md")
+                ),
+                None,
+            )
+            if section_index and section_index.url == target_url:
+                return parents
+            section_crumb = (
+                (item.title, section_index.url)
+                if section_index
+                else (item.title, None)
+            )
+            found = _find_page_path(
+                item.children, target_url, parents + (section_crumb,)
+            )
+            if found is not None:
+                return found
+    return None
+
+
 def on_page_context(context, page, config, **kwargs):
     """Expose a single breadcrumb model to both HTML and JSON-LD templates."""
     if page.url in ("", "index.html"):
@@ -14,9 +44,20 @@ def on_page_context(context, page, config, **kwargs):
         return context
 
     site_url = config.site_url
-    # GitHub Pages serves this project under /silk-road/, so the domain root
-    # is not the book's homepage. Use the configured canonical site URL.
-    trail = [{"name": ROOT_LABEL, "url": site_url}]
+    # Keep the full navigation hierarchy. The domain root is the first
+    # breadcrumb, followed by this book's homepage and any section landing page.
+    trail = [{"name": ROOT_LABEL, "url": "https://soroush-zendedel.github.io"}]
+    trail.append({"name": config.site_name, "url": site_url})
+
+    nav = context.get("nav")
+    section_path = _find_page_path(nav.items, page.url) if nav else None
+    if section_path:
+        trail.extend(
+            {"name": name, "url": site_url + url}
+            for name, url in section_path
+            if url
+        )
+
     trail.append({"name": page.title, "url": site_url + page.url})
     items = []
     for position, crumb in enumerate(trail, start=1):
